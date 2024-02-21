@@ -1,0 +1,14 @@
+.navBarContainer {
+  background-color: #bb1f1f;
+  padding: 10px 0px 10px 40px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+
+  p {
+    font-size: 27px;
+    color: white;
+    font-weight: bold;
+  }
+}

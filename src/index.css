@@ -1,0 +1,26 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+body {
+  background-color: #fff;
+  color: black;
+  padding-top: 55px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+h1 {
+  color: black;
+}
+p {
+  color: black;
+}
+/* removendo o sublinhado do Link */
+a {
+  text-decoration: none;
+}

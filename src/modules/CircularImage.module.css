@@ -1,0 +1,12 @@
+.image_container {
+  width: 130px;
+  height: 130px;
+  overflow: hidden; /* Garante que a imagem não ultrapasse os limites do contêiner */
+  border-radius: 50%; /* Define a forma da borda como circular */
+  margin: 0 auto; /* Centraliza o contêiner */
+}
+
+.circular_image {
+  width: 100%; /* Define a largura da imagem para preencher todo o contêiner */
+  height: auto; /* Mantém a proporção da imagem */
+}

@@ -1,0 +1,20 @@
+.home_container {
+}
+.tasks {
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+}
+
+.task {
+  background-color: #303a36;
+  padding: 10px 20px 10px 20px;
+  border-radius: 12px;
+  cursor: pointer;
+
+  p {
+    color: #fff;
+    font-size: 20px;
+  }
+}

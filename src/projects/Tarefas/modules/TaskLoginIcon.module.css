@@ -3,3 +3,9 @@
   width: 200px;
   margin-top: 20px;
 }
+@media (max-width: 600px) {
+  .icon_task {
+    height: 100px;
+    width: 100px;
+  }
+}

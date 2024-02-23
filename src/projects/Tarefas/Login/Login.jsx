@@ -1,17 +1,54 @@
-import { useState } from 'react';
-import TaskIcon from '../../../assets/images/tasks.png';
-import { NavBar } from '../components/NavBar';
+import { useEffect, useState } from 'react';
+
 import LoginStyles from '../modules/Login.module.css';
+import { NavBar } from '../components/NavBar';
+import TaskIcon from '../../../assets/images/tasks.png';
 import TaskLoginIconStyles from '../modules/TaskLoginIcon.module.css';
+import { TokenService } from '../services/TokenService';
+import { taskApi } from '../services/BaseUrl';
+import { useNavigate } from 'react-router-dom';
 
 function Login() {
-  const [name, setName] = useState('');
+  const [login, setLogin] = useState('teste1@gmail.com');
+  const [password, setPassword] = useState('123456');
+  const nav = useNavigate();
+  const tokenService = new TokenService();
 
-  const handleSubmit = (event) => {
+  useEffect(() => {
+    if (tokenService.getToken() != null) {
+      goToHome();
+    }
+  }, []);
+
+  async function handleSubmit(event) {
     event.preventDefault();
-    alert(`The name you entered was: ${name}`);
-  };
 
+    await doLogin();
+  }
+
+  async function doLogin() {
+    try {
+      var response = await taskApi.post('/auth/login', {
+        email: login,
+        password: password,
+      });
+      var token = response.data?.token;
+      console.log(token);
+
+      new TokenService().setToken(token);
+      defineHeaderToNextRequests(token);
+      goToHome();
+    } catch (error) {
+      throw new Error(error.response.data);
+    }
+  }
+
+  function defineHeaderToNextRequests(token) {
+    taskApi.defaults.headers['Authorization'] = `Bearer ${token}`;
+  }
+  function goToHome() {
+    nav('/task');
+  }
   return (
     <div className={LoginStyles.container}>
       <NavBar title='Tarefas' />
@@ -21,14 +58,14 @@ function Login() {
         <input
           placeholder='Login'
           type='text'
-          value={name}
-          onChange={(e) => setName(e.target.value)}
+          value={login}
+          onChange={(e) => setLogin(e.target.value)}
         />
         <input
           placeholder='Senha'
           type='text'
-          value={name}
-          onChange={(e) => setName(e.target.value)}
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
         />
 
         <input

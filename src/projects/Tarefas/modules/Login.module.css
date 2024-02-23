@@ -25,3 +25,9 @@ form {
   color: #fff;
   cursor: pointer;
 }
+
+@media (max-width: 600px) {
+  form {
+    width: 250px;
+  }
+}

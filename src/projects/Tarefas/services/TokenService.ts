@@ -7,6 +7,9 @@ class TokenService {
     if (token != null) return token;
     else return null;
   }
+  public clearToken() {
+    localStorage.removeItem('token');
+  }
 }
 
 export { TokenService };

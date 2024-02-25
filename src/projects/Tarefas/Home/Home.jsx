@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
 
 import { useNavigate } from 'react-router-dom';
+import { AddTask } from '../components/AddTask';
 import { NavBar } from '../components/NavBar';
+import { Key } from '../enums/Key';
 import HomeStyles from '../modules/Home.module.css';
 import { taskApi } from '../services/BaseUrl';
 import { TokenService } from '../services/TokenService';
@@ -12,8 +14,10 @@ function Home() {
   const [indexOfInputForEditTask, setIndexOfInputForEditTask] = useState(-1);
   const [indexOfInputForSaveEditedTask, setIndexOfInputForSaveEditedTask] =
     useState(-1);
-  const [newTitle, setNewTitle] = useState('');
+  const [newTitle, setNewTitle] = useState(''); //edited task
   const [reloadTaks, setReloadTasks] = useState(false);
+  const [title, setTitle] = useState('');
+  const [popUpCreateTaskVisible, setPopUpCreateTaskVisible] = useState(false);
   const nav = useNavigate();
   const tokenService = new TokenService();
 
@@ -24,6 +28,23 @@ function Home() {
       loadTasks();
     }
   }, [reloadTaks]);
+
+  useEffect(() => {
+    var handleKeyEvent = (event) => {
+      if (event.keyCode == Key.ESC) {
+        setPopUpCreateTaskVisible(false);
+        setIndexOfInputForEditTask(-1);
+        setIndexOfInputForSaveEditedTask(-1);
+        setMouseHoverIndex(-1);
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyEvent);
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyEvent);
+    };
+  }, []);
 
   function defineHeaderToNextRequests(token) {
     taskApi.defaults.headers['Authorization'] = `Bearer ${token}`;
@@ -79,17 +100,47 @@ function Home() {
       });
       setMouseHoverIndex(-1);
       setIndexOfInputForSaveEditedTask(-1);
+      setIndexOfInputForEditTask(-1);
       console.log(response.data);
       setReloadTasks(!reloadTaks);
-      window.location.reload();
+      //window.location.reload();
     } catch (error) {
       console.log(error.response);
     }
   }
 
+  addEventListener('popstate', () => {
+    nav('/');
+  });
+
+  function clickedOnCreateTask() {
+    setPopUpCreateTaskVisible(true);
+  }
+
+  async function addTask() {
+    try {
+      await taskApi.post('', { title: title });
+      alert('Task saved');
+      setReloadTasks(!reloadTaks);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  function handleNewTask(event) {
+    var newTitle = event.target.value;
+
+    setTitle(newTitle);
+  }
+
   return (
     <div className={HomeStyles.home_container}>
-      <NavBar title='Tarefas' />
+      <NavBar title='Tarefas' clickedOnCreateTask={clickedOnCreateTask} />
+
+      {popUpCreateTaskVisible && (
+        <AddTask addTask={addTask} handleNewTask={handleNewTask} />
+      )}
+
       <div className={HomeStyles.tasks}>
         {tasks.map((value, index) => (
           <div

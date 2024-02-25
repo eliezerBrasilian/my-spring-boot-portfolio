@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 
-import LoginStyles from '../modules/Login.module.css';
-import { NavBar } from '../components/NavBar';
-import TaskIcon from '../../../assets/images/tasks.png';
-import TaskLoginIconStyles from '../modules/TaskLoginIcon.module.css';
-import { TokenService } from '../services/TokenService';
-import { taskApi } from '../services/BaseUrl';
 import { useNavigate } from 'react-router-dom';
+import TaskIcon from '../../../assets/images/tasks.png';
+import { NavBar } from '../components/NavBar';
+import LoginStyles from '../modules/Login.module.css';
+import TaskLoginIconStyles from '../modules/TaskLoginIcon.module.css';
+import { taskApi } from '../services/BaseUrl';
+import { TokenService } from '../services/TokenService';
 
 function Login() {
   const [login, setLogin] = useState('teste1@gmail.com');
@@ -33,7 +33,7 @@ function Login() {
         password: password,
       });
       var token = response.data?.token;
-      console.log(token);
+      console.log('token: ' + token);
 
       new TokenService().setToken(token);
       defineHeaderToNextRequests(token);

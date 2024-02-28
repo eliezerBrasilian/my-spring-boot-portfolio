@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 
-import { useNavigate } from 'react-router-dom';
-import TaskIcon from '../../../assets/images/tasks.png';
-import { NavBar } from '../components/NavBar';
 import LoginStyles from '../modules/Login.module.css';
+import { NavBar } from '../components/NavBar';
+import TaskIcon from '../../../assets/images/tasks.png';
 import TaskLoginIconStyles from '../modules/TaskLoginIcon.module.css';
-import { taskApi } from '../services/BaseUrl';
 import { TokenService } from '../services/TokenService';
+import { taskApi } from '../services/BaseUrl';
+import { useNavigate } from 'react-router-dom';
 
 function Login() {
   const [login, setLogin] = useState('teste1@gmail.com');
@@ -51,7 +51,7 @@ function Login() {
   }
   return (
     <div className={LoginStyles.container}>
-      <NavBar title='Tarefas' />
+      <NavBar title='Tarefas' isLogin={true} />
       <img src={TaskIcon} className={TaskLoginIconStyles.icon_task} />
 
       <form onSubmit={handleSubmit} className={LoginStyles.form}>

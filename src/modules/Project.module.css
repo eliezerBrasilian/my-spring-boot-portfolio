@@ -14,11 +14,11 @@
     display: flex;
     flex-direction: column;
     column-gap: 0;
-    row-gap: 10px;
+    row-gap: 30px;
+    height: 100vh;
   }
   .project_container {
     padding-left: 0px;
-    margin-top: 80px;
     display: flex;
     flex-direction: column;
     align-items: center;

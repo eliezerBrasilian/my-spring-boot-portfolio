@@ -1,5 +1,5 @@
 .container {
-  width: 270px;
+  width: 300px;
   display: flex;
   flex-direction: column;
   row-gap: 5px;
@@ -9,6 +9,8 @@
   width: 100%;
   height: 170px;
   background-color: #d9d9d9;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .title {
@@ -20,12 +22,12 @@
   display: flex;
   justify-content: left;
   align-items: center;
-  height: 40px;
   column-gap: 10px;
+  width: 100%;
 }
 
 .tag {
   color: #6c48b9;
   font-size: 17px;
-  background-color: #1e1b1b;
+  height: 30px;
 }

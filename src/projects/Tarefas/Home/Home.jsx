@@ -150,6 +150,7 @@ function Home() {
           >
             {indexOfInputForEditTask == index ? (
               <input
+                style={{ backgroundColor: '#fff' }}
                 type='text'
                 value={value.title}
                 onChange={(event) => handleEditInput(event, index)}
